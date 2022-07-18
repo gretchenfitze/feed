@@ -89,7 +89,7 @@ export default (ins: Feed) => {
     // entry: required elements
     //
 
-    let entry: convert.ElementCompact = {
+    const entry: convert.ElementCompact = {
       title: { _attributes: { type: "html" }, _cdata: item.title },
       id: sanitize(item.id || item.link),
       link: [{ _attributes: { href: sanitize(item.link) } }],
@@ -110,6 +110,12 @@ export default (ins: Feed) => {
       entry.content = {
         _attributes: { type: "html" },
         _cdata: item.content,
+      };
+    }
+
+    if (item.image) {
+      entry['media:thumbnail'] = {
+          _attributes: { url: item.image },
       };
     }
 
